@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: auth-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: authdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - auth-network
+
+  backend:
+    build: .
+    container_name: auth-backend
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/authdb
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: root123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    networks:
+      - auth-network
+
+volumes:
+  mysql_data:
+
+networks:
+  auth-network:
+    driver: bridge
