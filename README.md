@@ -23,7 +23,7 @@ You do NOT need Java, Maven, Node.js, NPM, or MySQL installed locally — Docker
 
 Open terminal and run:
 
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/Pandi-IT/JWT-User-Authentication-System.git
 cd your-repo
 
 
@@ -99,3 +99,4 @@ docker-compose down
 Stop + delete database volume:
 
 docker-compose down -v
+
